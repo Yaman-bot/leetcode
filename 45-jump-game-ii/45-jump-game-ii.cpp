@@ -7,10 +7,9 @@ public:
         int max_reach=0;
         int jumps=0;
         for(int i=0;i<n-1;i++){
-            if(nums[i]+i>max_reach){
+            if(nums[i]+i>max_reach)
                 max_reach=nums[i]+i;
-            }
-             if(i==cur_reach)
+            if(i==cur_reach)
             {
                 jumps++;
                 cur_reach=max_reach;
