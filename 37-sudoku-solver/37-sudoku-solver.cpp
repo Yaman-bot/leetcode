@@ -4,9 +4,8 @@ public:
     bool canPlace(vector<vector<char>>& board,int i,int j,int n,char number){
         for(int x=0;x<n;x++){
             //Row and Col Check
-            if(board[i][x]==number || board[x][j]==number){
+            if(board[i][x]==number || board[x][j]==number)
                 return false;
-            }
         }
 
         int rn=sqrt(n);
@@ -16,9 +15,8 @@ public:
         //Subgrid check
         for(int x=sx;x<sx+rn;x++){
             for(int y=sy;y<sy+rn;y++){
-                if(board[x][y]==number){
+                if(board[x][y]==number)
                     return false;
-                }
             }
         }
         return true;
@@ -43,7 +41,6 @@ public:
             if(canPlace(board,i,j,n,'0'+number)){
                 //Assume 
                 board[i][j]='0'+number;
-
                 bool couldWeSolve=solve(board,i,j+1,n);
                 if(couldWeSolve)
                     return true;
