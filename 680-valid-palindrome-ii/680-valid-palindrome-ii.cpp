@@ -1,32 +1,20 @@
 class Solution {
 public:
-    
-    bool isPalindrome(int st, int e, string &s){
-        while(st<=e) {
-            if(s[st++]!=s[e--]) return false;
-        }
-        return true;
+    bool validHelper(string& s, int left, int right, int flag) {
+        if(left >= right) 
+            return true;
+        
+        else if(s[left] == s[right]) 
+            return validHelper(s, left+1, right-1, flag);
+        
+        else if(flag) 
+            return validHelper(s, left+1, right, flag-1) || validHelper(s, left, right-1, flag-1);
+        
+        return false;
     }
-    
     bool validPalindrome(string s) {
-         // edge case   
-         if(s.size() == 1) return true;
-        
-         int i=0, j=s.size()-1;
-         bool flag = true;
-        
-         while(i<j){
-             if(s[i]==s[j]) {i++;j--;continue;}
-             else{
-                   if(isPalindrome(i+1,j,s) || isPalindrome(i,j-1,s))
-                       flag = true;
-                  
-                   else flag = false;
-                 
-                       break;
-             }
-         }
-        
-          return flag;
+        int left = 0, right = s.size()-1, flag = 1;
+        return validHelper(s, left, right, flag);
     }
+
 };
