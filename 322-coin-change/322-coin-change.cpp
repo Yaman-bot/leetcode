@@ -9,9 +9,7 @@ public:
             for (int j = 1; j <= amount; j++)
             {
                 if (coins[i] <= j)
-                {
                     dp[j] = min(dp[j], dp[j - coins[i]] + 1);
-                }
             }
         }
         return (dp[amount] == INT_MAX - 1 ? -1 : dp[amount]);
