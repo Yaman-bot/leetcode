@@ -8,7 +8,7 @@ public:
         
         int newTarget = (totalSum + target) / 2;
         
-        if (newTarget > totalSum || (target + totalSum) % 2 != 0 || newTarget<0 )
+        if (totalSum <abs(target) || (target + totalSum) % 2 != 0 || newTarget<0 )
             return 0;
     
         vector<int> dp(newTarget + 1, 0);
