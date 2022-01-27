@@ -13,6 +13,7 @@ public:
             int x3= coordinates[i][0];
             int y3= coordinates[i][1];
             
+            //If slopes are not equal then not a straight line
             if ((y3 - y2) * (x2 - x1) != (y2 - y1) * (x3 - x2))
                 return false;
         }
