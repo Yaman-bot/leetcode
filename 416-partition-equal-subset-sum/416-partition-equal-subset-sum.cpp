@@ -16,7 +16,7 @@ public:
 
         for (auto num : nums)
             for (int s = sum; s >= num; s--)
-                if (dp[s - num] || s == num)
+                if (dp[s - num] )
                     dp[s] = true;
 
         return dp[sum];
