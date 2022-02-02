@@ -9,7 +9,7 @@ public:
         for(int i=0;i<n;i++)
             dp[i][i]=1;
 
-        for(int start=n-1;start>=0;start--){
+        for(int start=n-2;start>=0;start--){
             for(int end=start+1;end<n;end++){
                 if(s[start]==s[end])
                     dp[start][end]=dp[start+1][end-1]+2;
