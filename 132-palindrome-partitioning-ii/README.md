@@ -5,22 +5,22 @@
 <p>&nbsp;</p>
 <p><strong>Example 1:</strong></p>
 
-<pre><strong>Input:</strong> s = "aab"
+<pre style="position: relative;"><strong>Input:</strong> s = "aab"
 <strong>Output:</strong> 1
 <strong>Explanation:</strong> The palindrome partitioning ["aa","b"] could be produced using 1 cut.
-</pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div></pre>
 
 <p><strong>Example 2:</strong></p>
 
-<pre><strong>Input:</strong> s = "a"
+<pre style="position: relative;"><strong>Input:</strong> s = "a"
 <strong>Output:</strong> 0
-</pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div></pre>
 
 <p><strong>Example 3:</strong></p>
 
-<pre><strong>Input:</strong> s = "ab"
+<pre style="position: relative;"><strong>Input:</strong> s = "ab"
 <strong>Output:</strong> 1
-</pre>
+<div class="open_grepper_editor" title="Edit &amp; Save To Grepper"></div></pre>
 
 <p>&nbsp;</p>
 <p><strong>Constraints:</strong></p>
