@@ -8,7 +8,7 @@ public:
         for (int i = 0; i < n; i++)
             dp[i][i] = 1;
 
-        for (int start = n; start >= 0; start--)
+        for (int start = n-1; start >= 0; start--)
         {
             for (int end = start + 1; end < n; end++)
             {
