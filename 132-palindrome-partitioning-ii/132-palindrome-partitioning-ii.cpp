@@ -4,7 +4,7 @@ public:
     int minCut(string s)
     {
         int n = s.length();
-        vector<vector<bool>> dpPalindrome(n, vector<bool>(n, 0));
+        vector<vector<bool>> dpPalindrome(n, vector<bool>(n, false));
 
         for (int i = 0; i < n; i++)
             dpPalindrome[i][i] = true;
@@ -28,9 +28,7 @@ public:
             for (int end = n - 1; end >= start; end--)
             {
                 if (dpPalindrome[start][end])
-                {
                     minCuts = (end == n - 1) ? 0 : min(minCuts, cuts[end + 1] + 1);
-                }
             }
             cuts[start] = minCuts;
         }
