@@ -6,44 +6,24 @@ using namespace std;
 class Solution{
     public:
     
- int longestCommonSubstr (string A, string B, int n, int m)
+ int longestCommonSubstr (string s1, string s2, int n1, int n2)
     {
-       
-        int maxx=0;
-        if(n==0 || m==0)
+        vector<vector<int>> dp(n1 + 1, vector<int>(n2 + 1, 0));
+        int ans = 0;
+
+        for (int i = 1; i <= n1; i++)
         {
-            return 0;
-        }
-        
-        int dp[n+1][m+1];
-        for(int i=0;i<=n;i++)
-        {
-            for(int j=0;j<=m;j++)
+            for (int j = 1; j <= n2; j++)
             {
-                if(i==0 || j==0)
+                // as dp array's 1 coincides with 0 of string
+                if (s1[i - 1] == s2[j - 1])
                 {
-                    dp[i][j]=0;
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                    ans = max(ans, dp[i][j]);
                 }
             }
         }
-        
-        for(int i=1;i<=n;i++)
-        {
-            for(int j=1;j<=m;j++)
-            {
-                if(A[i-1]==B[j-1])
-                {
-                    dp[i][j] = 1+dp[i-1][j-1];
-                    maxx = max(maxx,dp[i][j]);
-                }
-                else
-                {
-                    dp[i][j] = 0;
-                }
-            }
-        }
-        
-        return maxx;
+        return ans;
     }
 };
 
