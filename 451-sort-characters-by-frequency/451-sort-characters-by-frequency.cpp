@@ -4,11 +4,11 @@ public:
         string ans = "";
         unordered_map<char,int> m;
         priority_queue<pair<int,char>> pq;
-        for(int i = 0;i<s.length();i++)
-            m[s[i]]++;
+        for(auto &i:s)
+            m[i]++;
         
         for(auto &i:m)
-            pq.push(make_pair(i.second, i.first));
+            pq.push({i.second, i.first});
 
         while(!pq.empty())
         {
