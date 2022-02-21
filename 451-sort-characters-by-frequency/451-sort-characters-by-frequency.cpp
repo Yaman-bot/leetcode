@@ -2,16 +2,14 @@ class Solution {
 public:
     string frequencySort(string s) {
         string ans = "";
-        unordered_map<char,int> mp;
+        unordered_map<char,int> m;
         priority_queue<pair<int,char>> pq;
         for(int i = 0;i<s.length();i++)
-        {
-            mp[s[i]]++;
-        }
-        for(auto i:mp)
-        {
+            m[s[i]]++;
+        
+        for(auto &i:m)
             pq.push(make_pair(i.second, i.first));
-        }
+
         while(!pq.empty())
         {
             int num = pq.top().first;
