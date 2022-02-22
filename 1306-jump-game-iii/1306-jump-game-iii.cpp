@@ -1,53 +1,30 @@
-class Solution {
+class Solution
+{
 public:
-    bool canReach(vector<int>& arr, int start) {
-        vector<int> zeros;
-        for (int i = 0; i < arr.size(); i++)
-        {
-            if (arr[i] == 0)
-                zeros.push_back(i);
-        }
-        
-        unordered_map<int,list<int>> m;
-        for (int i = 0; i < arr.size(); i++)
-        {
-            if (arr[i] == 0)
-                continue;
-            else
-            {
-                if (i + arr[i] < arr.size())
-                    m[i].push_back(i + arr[i]);
-                if (i - arr[i] >= 0)
-                    m[i].push_back(i - arr[i]);
-            }
-        }
-        
-        unordered_map<int, bool> visited;
-        for (int i = 0; i < arr.size(); i++)
-            visited[i] = false;
-
+    bool canReach(vector<int> &arr, int start)
+    {
+        vector<int> vis(arr.size(), 0);
         queue<int> q;
         q.push(start);
-        visited[start] = true;
-
+        vis[start] = 1;
         while (!q.empty())
         {
             int node = q.front();
             q.pop();
-            for (int nbr : m[node])
-            {
-                if (!visited[nbr])
-                {
-                    q.push(nbr);
-                    visited[nbr] = true;
-                }
-            }
-        }
-        
-        for (int i = 0; i < zeros.size(); i++)
-        {
-            if (visited[zeros[i]])
+            if (arr[node] == 0)
                 return true;
+            int nbr1 = node + arr[node];
+            int nbr2 = node - arr[node];
+            if (nbr1 < arr.size() && vis[nbr1] == 0)
+            {
+                q.push(nbr1);
+                vis[nbr1] = 1;
+            }
+            if (nbr2 >= 0 && vis[nbr2] == 0)
+            {
+                q.push(nbr2);
+                vis[nbr2] = 1;
+            }
         }
         return false;
     }
