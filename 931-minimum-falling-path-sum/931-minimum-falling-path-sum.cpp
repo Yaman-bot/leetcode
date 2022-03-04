@@ -1,4 +1,5 @@
-// Bottom Up-O(N*M)
+// Space Optimization-O(M)
+//Time-O(N*M)
 class Solution
 {
 public:
@@ -6,32 +7,34 @@ public:
     {
         int n = matrix.size();
         int m = matrix[0].size();
-        vector<vector<int>> dp(n, vector<int>(m, 0));
+        vector<int> dp(m, 0);
 
         for (int j = 0; j < m; j++)
-            dp[0][j] = matrix[0][j];
+            dp[j] = matrix[0][j];
 
         for (int i = 1; i < n; i++)
         {
+            vector<int> temp(m, 0);
             for (int j = 0; j < m; j++)
             {
-                int up = dp[i - 1][j] + matrix[i][j];
+                int up = dp[j] + matrix[i][j];
                 int leftDiagonal = matrix[i][j];
                 if (j - 1 >= 0)
-                    leftDiagonal += dp[i - 1][j - 1];
+                    leftDiagonal += dp[j - 1];
                 else
                     leftDiagonal += 1e9;
                 int rightDiagonal = matrix[i][j];
                 if (j + 1 < m)
-                    rightDiagonal += dp[i - 1][j + 1];
+                    rightDiagonal += dp[j + 1];
                 else
                     rightDiagonal += 1e9;
-                dp[i][j] = min(up, min(leftDiagonal, rightDiagonal));
+                temp[j] = min(up, min(leftDiagonal, rightDiagonal));
             }
+            dp = temp;
         }
         int ans = 1e9;
         for (int j = 0; j < m; j++)
-            ans = min(ans, dp[n - 1][j]);
+            ans = min(ans, dp[j]);
         return ans;
     }
 };
