@@ -16,19 +16,15 @@ public:
             }
         }
         
-        for(int i=0;i<n;i++){
-            if(row[i]){
+        for(int i=0;i<n;i++)
+            if(row[i])
                 for(int k=0;k<m;k++)
                     matrix[i][k]=0;
-            }
-        }
         
-        for(int i=0;i<m;i++){
-            if(col[i]){
+        for(int i=0;i<m;i++)
+            if(col[i])
                 for(int k=0;k<n;k++)
-                    matrix[k][i]=0;
-            }
-        }
+                    matrix[k][i]=0;           
         
     }
     
