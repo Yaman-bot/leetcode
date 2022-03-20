@@ -7,16 +7,12 @@ public:
         int j=n-1;
         
         while(i<m and j>=0){
-            if(matrix[i][j]< target){
+            if(matrix[i][j]< target)
                 i++;
-            }
-            else if(matrix[i][j]> target){
+            else if(matrix[i][j]> target)
                 j--;
-            }
-            else{
+            else
                 return true;
-                break;
-            }
         }
         return false;
     }
