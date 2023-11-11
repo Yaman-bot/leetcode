@@ -6,53 +6,45 @@ using namespace std;
 
 // } Driver Code Ends
 // User function Template for C++
-
-class Solution {
-  public:
-    
-    void dfs(int row, int col, vector<vector<int>>& vis, vector<vector<int>>& grid, vector<pair<int,int>> &v, 
-             int row0, int col0) {
-        
-        int n = grid.size();
-        int m = grid[0].size();
-        
-        if(row<0 || row>=n || col<0 || col>=m ) 
-            return ;
-        
-        
-        if(grid[row][col] == 0 || vis[row][col] == 1)
+class Solution
+{
+public:
+    void dfs(int r, int c, vector<vector<int>> &vis, vector<vector<int>> &grid,
+             int n, int m, int pr, int pc, vector<pair<int, int>> &vec)
+    {
+        if (r < 0 || c < 0 || r >= n || c >= m)
             return;
-        
-        vis[row][col] = 1;
-        v.push_back({row - row0, col - col0});
-        
-        dfs(row-1, col, vis, grid, v, row0, col0);
-        dfs(row+1, col, vis, grid, v, row0, col0);
-        dfs(row, col-1, vis, grid, v, row0, col0);
-        dfs(row, col+1, vis, grid, v, row0, col0);
+        if (grid[r][c] == 0 || vis[r][c]==1)
+            return;
+
+        vis[r][c] = 1;
+        vec.push_back({r - pr, c - pc});
+        dfs(r - 1, c, vis, grid, n, m, pr, pc, vec);
+        dfs(r + 1, c, vis, grid, n, m, pr, pc, vec);
+        dfs(r, c - 1, vis, grid, n, m, pr, pc, vec);
+        dfs(r, c + 1, vis, grid, n, m, pr, pc, vec);
+        return;
     }
-    
-    int countDistinctIslands(vector<vector<int>>& grid) {
-        
+    int countDistinctIslands(vector<vector<int>> &grid)
+    {
+        // code here
         int n = grid.size();
         int m = grid[0].size();
         vector<vector<int>> vis(n, vector<int>(m, 0));
-        set<vector<pair<int,int>>> st;
-        
-        for(int i=0; i<n; i++) {
-            for(int j=0; j<m; j++) {
-                
-                if(!vis[i][j] && grid[i][j] == 1) {
-                    vector<pair<int,int>> v;
-                    dfs(i, j, vis, grid, v, i, j);
-                    st.insert(v);
+        set<vector<pair<int, int>>> st;
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
+                if (!vis[i][j] && grid[i][j] == 1)
+                {
+                    vector<pair<int, int>> vec;
+                    dfs(i, j, vis, grid, n, m, i, j, vec);
+                    st.insert(vec);
                 }
             }
         }
         return st.size();
-        
-        //T.C :- O(N * M) + O(N * M)*4  =>  O(N * M)
-        //S.C :- O(N * M) + O(N * M)  =>    O(N * M)
     }
 };
 
