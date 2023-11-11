@@ -5,32 +5,43 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    bool dfs(int node,vector<int> adj[],vector<int> &vis,vector<int> &path){
-        vis[node]=1;
-        path[node]=1;
-        for(auto nbr:adj[node]){
-            if(!vis[nbr]){
-                if(dfs(nbr,adj,vis,path))
-                    return true;
-            }
-            else if(path[nbr])
-                return true;
-        }
-        path[node]=0;
-        return false;
-    }
+	vector<int> topoSort(int V, vector<int> adj[]) 
+	{
+	    // code here
+	    vector<int> indegree(V,0);
+	    
+	    for(int i=0;i<V;i++){
+	        for(auto it:adj[i]){
+	            indegree[it]++;
+	        }
+	    }
+	    
+	    queue<int> q;
+	    
+	    for(int i=0;i<V;i++){
+	        if(indegree[i]==0)
+	            q.push(i);
+	    }
+	    
+	    vector<int> ans;
+	    while(!q.empty()){
+	        int node=q.front();
+	        q.pop();
+	        ans.push_back(node);
+	        
+	        for(auto nbr:adj[node]){
+	            indegree[nbr]--;
+	            if(indegree[nbr]==0)
+	                q.push(nbr);
+	        }
+	    }
+	    return ans;
+	}
     // Function to detect cycle in a directed graph.
     bool isCyclic(int V, vector<int> adj[]) {
         // code here
-        vector<int> vis(V,0);
-        vector<int> path(V,0);
-        for(int i=0;i<V;i++){
-            if(!vis[i]){
-                if(dfs(i,adj,vis,path))
-                    return true;
-            }
-        }
-        return false;
+        vector<int> topo=topoSort(V,adj);
+        return !(topo.size()==V);
     }
 };
 
