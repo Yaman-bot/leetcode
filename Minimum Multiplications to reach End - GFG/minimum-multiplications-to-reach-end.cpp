@@ -28,10 +28,11 @@ class Solution {
             
             for(auto it:arr){
                 int num=(it*node)%mod;
-                if(dist[num]>steps+1){
-                    dist[num]=steps+1;
-                    if(num==end)
+                if(num==end)
                         return steps+1;
+                if(dist[num]>steps+1){
+                    
+                    dist[num]=steps+1;
                     q.push({num,steps+1});
                 }
             }
