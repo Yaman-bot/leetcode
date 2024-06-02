@@ -1,32 +1,31 @@
 class Solution
 {
 public:
-    int f(int i, int transaction, int k, int n, vector<vector<int>> &dp, vector<int> &prices)
-    {
-        if (i == n || transaction == 2*k)
-            return 0;
-
-        if (dp[i][transaction] != -1)
-            return dp[i][transaction];
-
-        int profit = 0;
-        if (transaction%2 == 0) //Buy
-        {                                   // Take                                  //Not take
-            profit = max(-prices[i] + f(i + 1, transaction+1, k, n, dp, prices), 0 + f(i + 1, transaction, k, n, dp, prices));
-        }
-        else // Sell
-        {                               // Take                                  //Not take
-            profit = max(prices[i] + f(i + 1, transaction + 1, k, n, dp, prices), 0 + f(i + 1, transaction, k, n, dp, prices));
-        }
-
-        dp[i][transaction] = profit;
-        return dp[i][transaction];
-    }
     int maxProfit(int k, vector<int> &prices)
     {
         int n = prices.size();
-        vector<vector<int>> dp(n,vector<int>(2*k,-1));
-        //(index,buy,cap)
-        return f(0, 0, k, n, dp, prices);
+        vector<vector<int>> dp(n+1, vector<int>(2 * k+1, 0));
+
+        // Base case
+        // For i==n && transaction==2*k dp[i][transaction]=0;
+
+        for (int i = n - 1; i >= 0; i--)
+        {
+            for (int transaction = 2 * k - 1;transaction>=0;transaction--){
+                int profit = 0;
+                if (transaction % 2 == 0) // Buy
+                {                         // Take                                  //Not take
+                    profit = max(-prices[i] + dp[i + 1][transaction + 1], 0 + dp[i + 1][transaction]);
+                }
+                else // Sell
+                {    // Take                                  //Not take
+                    profit = max(prices[i] + dp[i + 1][transaction + 1], 0 + dp[i + 1][transaction]);
+                }
+
+                dp[i][transaction] = profit;
+            }
+        }
+
+        return dp[0][0];
     }
 };
