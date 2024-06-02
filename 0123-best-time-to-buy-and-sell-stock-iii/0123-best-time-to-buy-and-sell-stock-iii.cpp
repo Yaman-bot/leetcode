@@ -9,17 +9,18 @@ public:
         if (dp[i][buy][cap] != -1)
             return dp[i][buy][cap];
 
+        int profit = 0;
         if (buy)
         { // Take                                  //Not take
-            dp[i][buy][cap] = max(-prices[i] + f(i + 1, 0,cap, n, dp, prices), 0 + f(i + 1, 1,cap, n, dp, prices));
-            return dp[i][buy][cap];
+            profit = max(-prices[i] + f(i + 1, 0,cap, n, dp, prices), 0 + f(i + 1, 1,cap, n, dp, prices));
         }
         else // Sell
         {    // Take                                  //Not take
-            dp[i][buy][cap] = max(prices[i] + f(i + 1, 1,cap-1, n, dp, prices), 0 + f(i + 1, 0,cap, n, dp, prices));
-            return dp[i][buy][cap];
+            profit = max(prices[i] + f(i + 1, 1,cap-1, n, dp, prices), 0 + f(i + 1, 0,cap, n, dp, prices));
         }
 
+        dp[i][buy][cap] = profit;
+        return dp[i][buy][cap];
     }
     int maxProfit(vector<int> &prices)
     {
