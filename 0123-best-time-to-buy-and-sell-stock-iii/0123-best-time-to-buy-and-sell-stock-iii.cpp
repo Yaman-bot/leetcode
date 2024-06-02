@@ -1,33 +1,45 @@
 class Solution
 {
 public:
-    int f(int i, int buy, int cap, int n, vector<vector<vector<int>>> &dp, vector<int> &prices)
-    {
-        if (i == n || cap==0)
-            return 0;
-
-        if (dp[i][buy][cap] != -1)
-            return dp[i][buy][cap];
-
-        int profit = 0;
-        if (buy)
-        { // Take                                  //Not take
-            profit = max(-prices[i] + f(i + 1, 0,cap, n, dp, prices), 0 + f(i + 1, 1,cap, n, dp, prices));
-        }
-        else // Sell
-        {    // Take                                  //Not take
-            profit = max(prices[i] + f(i + 1, 1,cap-1, n, dp, prices), 0 + f(i + 1, 0,cap, n, dp, prices));
-        }
-
-        dp[i][buy][cap] = profit;
-        return dp[i][buy][cap];
-    }
     int maxProfit(vector<int> &prices)
     {
         int n = prices.size();
-        vector<vector<vector<int>>> dp(n, vector<vector<int>>(2, vector<int>(3,-1)));
+        vector<vector<vector<int>>> dp(n+1, vector<vector<int>>(2, vector<int>(3, 0)));
 
-        //(index,buy,cap)
-        return f(0, 1,2, n, dp, prices);
+        // When cap==0
+        for(int i = 0; i < n; i++){
+            for (int buy = 0; buy <= 1;buy++){
+                dp[i][buy][0] = 0;
+            }
+        }
+
+        //When ind==n
+        for(int buy = 0; buy <= 1; buy++){
+            for (int cap = 0; cap <= 2;cap++){
+                dp[n][buy][cap] = 0;
+            }
+        }
+        for (int i = n-1; i>=0; i--)
+        {
+            for (int buy = 0; buy <= 1; buy++)
+            {
+                for (int cap = 1; cap <= 2; cap++)
+                {
+                    int profit = 0;
+                    if (buy)
+                    { // Take                                  //Not take
+                        profit = max(-prices[i] + dp[i + 1][0][cap], 0 + dp[i + 1][1][cap]);
+                    }
+                    else // Sell
+                    {    // Take                                  //Not take
+                        profit = max(prices[i] + dp[i + 1][1][cap - 1], 0 + dp[i + 1][0][cap]);
+                    }
+
+                    dp[i][buy][cap] = profit;
+                }
+            }
+        }
+
+        return dp[0][1][2];
     }
 };
