@@ -12,18 +12,19 @@
 class Solution {
 public:
     int maxPathSum(TreeNode* root) {
-        int sum=-1e9;
-        f(root,sum);
-        return sum;
+        int ans=-1e9;
+        helper(root,ans);
+        return ans;
     }
     
-    int f(TreeNode* root,int &sum){
+    int helper(TreeNode* root,int &ans){
         if(root==NULL)
             return 0;
         
-        int ls=max(0,f(root->left,sum));
-        int rs=max(0,f(root->right,sum));
-        sum=max(sum,root->val+ls+rs);
+        int ls=max(0,helper(root->left,ans));
+        int rs=max(0,helper(root->right,ans));
+        
+        ans=max(ans,root->val+ls+rs);
         return root->val+max(ls,rs);
     }
 };
