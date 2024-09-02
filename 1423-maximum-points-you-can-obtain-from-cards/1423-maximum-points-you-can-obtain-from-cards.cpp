@@ -1,7 +1,7 @@
 class Solution {
 public:
     int maxScore(vector<int>& cardPoints, int k) {
-        int lSum=0,rSum=0,maxSum=0;
+        long long lSum=0,rSum=0,maxSum=0;
         for(int i=0;i<k;i++){
             lSum+=cardPoints[i];
         }
@@ -14,6 +14,6 @@ public:
             rightInd--;
             maxSum=max(maxSum,lSum+rSum);
         }
-        return maxSum;
+        return (int) maxSum;
     }
 };
