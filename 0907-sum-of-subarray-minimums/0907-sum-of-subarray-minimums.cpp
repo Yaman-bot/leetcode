@@ -9,6 +9,7 @@ public:
             while(!st1.empty() && arr[st1.top()] >= arr[i])
                 st1.pop();
             nse[i] = st1.empty() ? n : st1.top();
+            // We are pushing the index
             st1.push(i);    
         }
         return nse;
